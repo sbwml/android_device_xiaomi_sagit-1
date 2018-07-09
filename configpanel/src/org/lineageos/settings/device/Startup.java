@@ -26,8 +26,6 @@ import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
-import org.lineageos.internal.util.FileUtils;
-
 public class Startup extends BroadcastReceiver {
 
     private static final String TAG = Startup.class.getSimpleName();
@@ -35,18 +33,6 @@ public class Startup extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
-        if (lineageos.content.Intent.ACTION_INITIALIZE_LINEAGE_HARDWARE.equals(action)) {
-            enableComponent(context, ButtonSettingsActivity.class.getName());
-
-            // Restore saved preference values
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            for (String key : Constants.sBackendsMap.keySet()) {
-                SwitchPreferenceBackend backend = Constants.sBackendsMap.get(key);
-                Boolean value = preferences.getBoolean(key, backend.getDefaultValue());
-
-                backend.setValue(value);
-            }
-        }
     }
 
     private void enableComponent(Context context, String component) {

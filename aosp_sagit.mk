@@ -1,9 +1,20 @@
 $(call inherit-product, device/xiaomi/sagit/full_sagit.mk)
 
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common PEX stuff.
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
-PRODUCT_NAME := lineage_sagit
+#GApps
+TARGET_GAPPS_ARCH := arm64
+
+TARGET_BOOT_ANIMATION_RES := 1080
+
+# Include Google Stock Apps - Experimental
+GAPPS_PRODUCT_PACKAGES += \
+    Music2 \
+    PrebuiltGmail \
+    YouTube
+
+PRODUCT_NAME := aosp_sagit
 PRODUCT_DEVICE := sagit
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := MI 6

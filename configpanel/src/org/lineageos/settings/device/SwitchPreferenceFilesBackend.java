@@ -16,8 +16,6 @@
 
 package org.lineageos.settings.device;
 
-import org.lineageos.internal.util.FileUtils;
-
 public class SwitchPreferenceFilesBackend extends SwitchPreferenceBackend {
 
     private String[] mPaths;
@@ -35,13 +33,6 @@ public class SwitchPreferenceFilesBackend extends SwitchPreferenceBackend {
 
     @Override
     public void setValue(Boolean value) {
-        for (String path : mPaths) {
-            if (!FileUtils.isFileWritable(path)) {
-                continue;
-            }
-
-            FileUtils.writeLine(path, value ? "1" : "0");
-        }
 
         mValue = value;
     }
@@ -59,12 +50,6 @@ public class SwitchPreferenceFilesBackend extends SwitchPreferenceBackend {
          * but we need to try multiple to handle multiple kernel drivers.
          * Cache the validity to avoid slow fragment rendering times.
          */
-        for (String path : mPaths) {
-            if (FileUtils.isFileReadable(path) && FileUtils.isFileWritable(path)) {
-                valid = true;
-                break;
-            }
-        }
 
         mValid = valid;
     }
